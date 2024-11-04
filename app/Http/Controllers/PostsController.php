@@ -41,6 +41,7 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+        \Log::debug('dsdds');
         $request->validate([
             'title' => 'required',
             'description' => 'required',
@@ -71,8 +72,10 @@ class PostsController extends Controller
      */
     public function show($slug)
     {
+        \Log::debug("ssdfsdfsd");
         return view('blog.show')
             ->with('post', Post::where('slug', $slug)->first());
+        // ->with('post', $post);
     }
 
     /**
@@ -83,7 +86,8 @@ class PostsController extends Controller
      */
     public function edit($slug)
     {
-
+        return view('blog.edit')
+            ->with('post', Post::where('slug', $slug)->first());
     }
 
     /**
@@ -120,6 +124,7 @@ class PostsController extends Controller
     public function destroy($slug)
     {
         $post = Post::where('slug', $slug);
+        $post->delete();
 
         return redirect('/blog')
             ->with('message', 'Your post has been deleted!');

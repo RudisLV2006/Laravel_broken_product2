@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
@@ -17,6 +18,14 @@ use App\Http\Controllers\PagesController;
 */
 
 Route::get('/', [PagesController::class, 'index']);
+Route::get('/blog', [PostsController::class, 'index']);
+Route::get('/blog/create', [PostsController::class, 'create']);
+Route::get('/blog/{post}', [PostsController::class, 'show']);
+Route::get('/blog/{post}/edit', [PostsController::class, 'edit']);
+Route::post('/blog', [PostsController::class, 'store']);
+Route::put('/blog/{post}', [PostsController::class, 'update']);
+Route::delete('/blog/{post}', [PostsController::class, 'destroy']);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -28,4 +37,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
